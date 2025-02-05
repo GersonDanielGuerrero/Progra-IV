@@ -24,6 +24,17 @@ createApp({
             if (confirm(`¿Esta seguro de eliminar el alumno ${alumno.nombre}?`)){
                 localStorage.removeItem(alumno.codigo);
                 this.listarAlumnos();
+                //limpiar campos
+                this.codigo = '';
+                this.nombre = '';
+                this.direccion = '';
+                this.telefono = '';
+                this.email = '';
+                this.nacimiento = '';
+                this.sexo = '';
+                this.departamento = '';
+                this.municipio = '';
+                this.distrito = '';
             }
         },
         verAlumno(alumno) {
