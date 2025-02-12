@@ -73,3 +73,10 @@ createApp({
         this.listarAlumnos();
     }
 }).mount('#app');
+
+
+//Tarea
+/*
+** Listar cumpleañeros del mes, menores de edad, menores de 21
+
+*/
