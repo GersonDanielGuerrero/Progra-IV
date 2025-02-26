@@ -4,6 +4,7 @@
         return {
             buscar: '',
             buscarTipo: 'nombre',
+            filtro:'todos',
             alumnos: [],
         }
     },
@@ -19,8 +20,14 @@
             }, () => { });
         },
         async listarAlumnos() {
-            this.alumnos = await db.alumnos.filter(alumno => alumno[this.buscarTipo].toLowerCase().includes(this.buscar.toLowerCase())).toArray();
+            this.alumnos = await db.alumnos.filter(alumno => alumno[this.buscarTipo].toLowerCase().includes(this.buscar.toLowerCase())&&this.filtrarAlumno(alumno)).toArray();
         },
+        filtrarAlumno(alumno){
+            if(filtro=='todos'){
+                return true;
+            }
+            
+        }
     },
     created() {
         this.listarAlumnos();
@@ -33,12 +40,17 @@
                         <tr>
                             <th>BUSCAR POR</th>
                             <th>
-                                <select v-model="buscarTipo" class="form-control">
+                                <select v-model="buscarTipo" class="form-select">
                                     <option value="codigo">CODIGO</option>
                                     <option value="nombre">NOMBRE</option>
                                     <option value="direccion">DIRECCION</option>
                                     <option value="telefono">TELEFONO</option>
                                     <option value="email">EMAIL</option>
+                                </select>
+                                <select v-model ="filtro" class="form-select">
+
+
+
                                 </select>
                             </th>
                             <th colspan="4">

@@ -7,7 +7,11 @@ const app = createApp({
         alumno,
         materia,
         buscaralumno,
-        buscarmateria
+        buscarmateria,
+        matricula,
+        buscarmatricula,
+        inscripcionmaterias,
+        buscarmateriasinscritas,
     },
     data() {
         return {
@@ -17,6 +21,9 @@ const app = createApp({
                 materia: {mostrar: false},
                 buscarMateria: {mostrar: false},
                 matricula: {mostrar: false},
+                buscarMatricula: {mostrar: false},
+                inscripcionMaterias: {mostrar: false},
+                buscarInscripcionMaterias: {mostrar: false}
             },
         };
     },
@@ -33,8 +40,10 @@ const app = createApp({
     },
     created() {
         db.version(1).stores({
-            alumnos: '++idAlumno, codigo, nombre, direccion, telefono, email',
+            alumnos: '++idAlumno, codigo, nombre, direccion, telefono, email, nacimiento, sexo, departamento, municipio, distrito',
             materias: '++idMateria, codigo, nombre, uv',
+            matriculas: '++idMatricula, idAlumno, fecha, periodo, carrera, nombreAlumno, codigoAlumno',
+            inscripcion_materia: '++idInscripcion, idAlumno, idMateria'
         });
     }
 });

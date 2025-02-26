@@ -9,7 +9,12 @@
             nombre: '',
             direccion: '',
             telefono: '',
-            email: ''
+            email: '',
+            nacimiento: '',
+            sexo: '',
+            departamento: '',
+            municipio: '',
+            distrito: ''
         }
     },
     methods: {
@@ -25,6 +30,11 @@
             this.direccion = alumno.direccion;
             this.telefono = alumno.telefono;
             this.email = alumno.email;
+            this.nacimiento = alumno.nacimiento;
+            this.sexo = alumno.sexo;
+            this.departamento = alumno.departamento;
+            this.municipio = alumno.municipio;
+            this.distrito = alumno.distrito;
         },
         guardarAlumno() {
             let alumno = {
@@ -32,12 +42,18 @@
                 nombre: this.nombre,
                 direccion: this.direccion,
                 telefono: this.telefono,
-                email: this.email
+                email: this.email,
+                nacimiento: this.nacimiento,
+                sexo: this.sexo,
+                departamento: this.departamento,
+                municipio: this.municipio,
+                distrito: this.distrito
             };
             if (this.accion == 'modificar') {
                 alumno.idAlumno = this.idAlumno;
             }
             db.alumnos.put(alumno);
+            $refs.matricula.cargarDatos();
             this.nuevoAlumno();
         },
         nuevoAlumno() {
@@ -48,6 +64,11 @@
             this.direccion = '';
             this.telefono = '';
             this.email = '';
+            this.nacimiento = '';
+            this.sexo = '';
+            this.departamento = '';
+            this.municipio = '';
+            this.distrito = '';
         }
     },
     template: `
@@ -87,6 +108,39 @@
                                     <input v-model="email" type="text" name="txtEmailAlumno" id="txtEmailAlumno" class="form-control">
                                 </div>
                             </div>
+                            <div class="row p-1">
+                                    <div class="col-3 col-md-2">NACIMIENTO</div>
+                                    <div class="col-9 col-md-6">
+                                        <input v-model="nacimiento" type="date" name="txtNacimientoALumno" id="txtNacimientoAlumno" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="row p-1">
+                                    <div class="col-3 col-md-2">SEXO</div>
+                                    <div class="col-9 col-md-4">
+                                        <select v-model="sexo" name="cmbSexoAlumno" id="cmbSexoAlumno" class="form-select">
+                                            <option value="M">Masculino</option>
+                                            <option value="F">Femenino</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row p-1">
+                                    <div class="col-3 col-md-2">DEPARTAMENTO</div>
+                                    <div class="col-9 col-md-6">
+                                        <input v-model="departamento" type="text" name="txtDepartamentoAlumno" id="txtDepartamentoAlumno" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="row p-1">
+                                    <div class="col-3 col-md-2">MUNICIPIO</div>
+                                    <div class="col-9 col-md-6">
+                                        <input v-model="municipio" type="text" name="txtMunicipioAlumno" id="txtMunicipioAlumno" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="row p-1">
+                                    <div class="col-3 col-md-2">DISTRITO</div>
+                                    <div class="col-9 col-md-6">
+                                        <input v-model="distrito" type="text" name="txtDistritoAlumno" id="txtDistritoAlumno" class="form-control">
+                                    </div>
+                                </div>
                         </div>
                         <div class="card-footer bg-dark text-center">
                             <input type="submit" value="Guardar" class="btn btn-primary"> 
