@@ -93,7 +93,7 @@
                             <div class="row p-1">
                                 <div class="col-3 col-md-2">AUTOR</div>
                                 <div class="col-9 col-md-4">
-                                    <select v-model="idAutor" class="form-select">
+                                    <select v-model="idAutor" class="form-select" @change ="cargarAutores">
                                         <option v-for="autor in autores" :value="autor.idAutor">{{ autor.nombre }}</option>
                                     </select>
                                 </div>
