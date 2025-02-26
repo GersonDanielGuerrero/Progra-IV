@@ -20,13 +20,39 @@
             }, () => { });
         },
         async listarAlumnos() {
-            this.alumnos = await db.alumnos.filter(alumno => alumno[this.buscarTipo].toLowerCase().includes(this.buscar.toLowerCase())&&this.filtrarAlumno(alumno)).toArray();
+            this.alumnos = await db.alumnos.filter(alumno => alumno[this.buscarTipo].toLowerCase().includes(this.buscar.toLowerCase())).toArray();
+            this.alumnos.filter(alumno=> this.filtrarAlumno(alumno));
         },
         filtrarAlumno(alumno){
+            const hoy = new Date();
+            const mesActual= hoy.getMonth;
+            const diaActual = hoy.getDate;
+
+            const nacimientoAlumno = new Date(alumno.nacimiento);
+            const mesNacimiento = nacimientoAlumno.getMonth;
+            const diaNacimiento = nacimientoAlumno.getDate;
+
+
             if(filtro=='todos'){
                 return true;
             }
-            
+            else if (filtro=='cumpleañeros'){
+                return mesNacimiento==mesActual;
+            }
+            else if (filtro=='menores18'){
+                const edadMinima = 18
+                if(mesActual > mesNacimiento || (mesActual == mesNacimiento && diaActual > diaNacimiento)){
+                    return edad - 1 < edadMinima;
+                }
+                return edad < edadMinima;
+            }
+            else if (filtro=='menores21'){
+                const edadMinima = 21
+                if(mesActual > mesNacimiento || (mesActual == mesNacimiento && diaActual > diaNacimiento)){
+                    return edad - 1 < edadMinima;
+                }
+                return edad < edadMinima;
+            }
         }
     },
     created() {
@@ -47,10 +73,11 @@
                                     <option value="telefono">TELEFONO</option>
                                     <option value="email">EMAIL</option>
                                 </select>
-                                <select v-model ="filtro" class="form-select">
-
-
-
+                                <select v-model ="filtro" class="form-select" @change="listarAlumnos()">
+                                    <option value ="todos">Todos</option>
+                                    <option value ="cumpleañeros">Cumpleañeros</option>
+                                    <option value ="menores18">Menores de 18</option>
+                                    <option value ="menores21">Menores de 21</option>
                                 </select>
                             </th>
                             <th colspan="4">
