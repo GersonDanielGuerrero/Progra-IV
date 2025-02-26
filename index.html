@@ -31,13 +31,10 @@
                     <div class="collapse navbar-collapse" id="navbarText">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item">
-                                <a class="nav-link" @click="abrirFormulario('alumno')" href="#">Alumno</a>
+                                <a class="nav-link" @click="abrirFormulario('autor')" href="#">Autor</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" @click="abrirFormulario('materia')" href="#">Materia</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" @click="abrirFormulario('docente')" href="#">Docente</a>
+                                <a class="nav-link" @click="abrirFormulario('libro')" href="#">Libro</a>
                             </li>
                         </ul>
                     </div>
@@ -45,20 +42,20 @@
             </nav>
         </div>
         <div class="container-fluid" id="appSistema">
-            <alumno v-show="forms.alumno.mostrar" :forms="forms" ref="alumno" @buscar="buscar('buscaralumno', 'listarAlumnos')"></alumno>
-            <buscaralumno v-show="forms.buscarAlumno.mostrar" ref="buscaralumno" @modificar="modificar('alumno', 'modificarAlumno', $event)"></buscaralumno>
-            <materia v-show="forms.materia.mostrar" :forms="forms" ref="materia" @buscar="buscar('buscarmateria', 'listarMaterias')"></materia>
-            <buscarmateria v-show="forms.buscarMateria.mostrar" ref="buscarmateria" @modificar="modificar('materia', 'modificarMateria', $event)"></buscarmateria>
+            <autor v-show="forms.autor.mostrar" :forms="forms" ref="autor" @buscar="buscar('buscarautor', 'listarAutores')"></autor>
+            <buscarautor v-show="forms.buscarAutor.mostrar" ref="buscarautor" @modificar="modificar('autor', 'modificarAutor', $event)"></buscarautor>
+            <libro v-show="forms.libro.mostrar" :forms="forms" ref="libro" @buscar="buscar('buscarlibro', 'listarLibros')"></libro>
+            <buscarlibro v-show="forms.buscarLibro.mostrar" ref="buscarlibro" @modificar="modificar('libro', 'modificarLibro', $event)"></buscarlibro>
         </div>
     </div>
     <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/alertify.min.js"></script>
     <script src="https://unpkg.com/dexie/dist/dexie.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <script src="componentes/busqueda_alumnos.js"></script>
-    <script src="componentes/alumnos.js"></script>
-    <script src="componentes/busqueda_materias.js"></script>
-    <script src="componentes/materias.js"></script>
+    <script src="componentes/busqueda_autores.js"></script>
+    <script src="componentes/autores.js"></script>
+    <script src="componentes/busqueda_libros.js"></script>
+    <script src="componentes/libros.js"></script>
     <script src="main.js"></script>
 </body>
 
