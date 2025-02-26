@@ -48,9 +48,8 @@
                             <th>BUSCAR POR</th>
                             <th>
                                 <select v-model="buscarTipo" class="form-control">
-                                    <option value="isbn">ISBN</option>
+                                    <option value="isbn">ISBN</option> 
                                     <option value="titulo">TITULO</option>
-                                    <option value="autor">AUTOR</option>
                                     <option value="editorial">EDITORIAL</option>
                                     <option value="edicion">EDICION</option>
                                 </select>
