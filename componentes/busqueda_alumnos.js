@@ -20,6 +20,14 @@
         },
         async listarAlumnos() {
             this.alumnos = await db.alumnos.filter(alumno => alumno[this.buscarTipo].toLowerCase().includes(this.buscar.toLowerCase())).toArray();
+            if (this.alumnos.length<1) {
+                fetch('private/modulos/alumnos/alumno.php?accion=consultar')
+                    .then(response => response.json())
+                    .then(data =>{
+                        this.alumnos = data;
+                        db.alumnos.bulkAdd(data);
+                    });
+            }
         },
     },
     created() {

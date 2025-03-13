@@ -1,4 +1,5 @@
 const {createApp, ref} = Vue;
+const {v4: uuidv4} = uuid;
 const Dexie = window.Dexie,
     db = new Dexie('db_academico');
 
@@ -33,7 +34,7 @@ const app = createApp({
     },
     created() {
         db.version(1).stores({
-            alumnos: '++idAlumno, codigo, nombre, direccion, telefono, email',
+            alumnos: 'codigo_transaccion, codigo, nombre, direccion, telefono, email',
             materias: '++idMateria, codigo, nombre, uv',
         });
     }
