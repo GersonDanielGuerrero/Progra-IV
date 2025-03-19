@@ -39,6 +39,12 @@
                             <li class="nav-item">
                                 <a class="nav-link" @click="abrirFormulario('docente')" href="#">Docente</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" @click="abrirFormulario('matricula')" href="#">Matricula</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" @click="abrirFormulario('inscripcionMaterias')" href="#">Inscripcion</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -49,6 +55,10 @@
             <buscaralumno v-show="forms.buscarAlumno.mostrar" ref="buscaralumno" @modificar="modificar('alumno', 'modificarAlumno', $event)"></buscaralumno>
             <materia v-show="forms.materia.mostrar" :forms="forms" ref="materia" @buscar="buscar('buscarmateria', 'listarMaterias')"></materia>
             <buscarmateria v-show="forms.buscarMateria.mostrar" ref="buscarmateria" @modificar="modificar('materia', 'modificarMateria', $event)"></buscarmateria>
+            <matricula v-show="forms.matricula.mostrar" :forms="forms" ref="matricula" @buscar="buscar('buscarmatricula', 'listarMatriculas')"></matricula>
+            <buscarmatricula v-show="forms.buscarMatricula.mostrar" ref="buscarmatricula" @modificar="modificar('matricula', 'modificarMatricula', $event)"></buscarmatricula>
+            <inscripcionmaterias v-show="forms.inscripcionMaterias.mostrar" :forms="forms" ref="inscripcionmaterias" @buscar="buscar('buscarmateriasinscritas', 'listarInscripciones')"></inscripcionmaterias>
+            <buscarmateriasinscritas v-show="forms.buscarInscripcionMaterias.mostrar" ref="buscarmateriasinscritas" @modificar="modificar('inscripcionMaterias', 'modificarInscripcionMateria', $event)"></buscarmateriasinscritas>
         </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.2.0/uuid.min.js"></script>
@@ -60,6 +70,10 @@
     <script src="componentes/alumnos.js"></script>
     <script src="componentes/busqueda_materias.js"></script>
     <script src="componentes/materias.js"></script>
+    <script src="componentes/matricula.js"></script>
+    <script src="componentes/inscripcion_materias.js"></script>
+    <script src="componentes/busqueda_matriculas.js"></script>
+    <script src="componentes/busqueda_materias_inscritas.js"></script>
     <script src="main.js"></script>
 </body>
 
