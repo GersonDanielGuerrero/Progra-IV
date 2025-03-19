@@ -23,16 +23,22 @@
         modificarAlumno(alumno) {
             this.accion = 'modificar';
             this.alumno = {...alumno};
+            this.alumno.estado = 'modificado';
         },
         guardarAlumno() {
             let alumno = {...this.alumno};
+            console.log(alumno.estado);
+            if(navigator.onLine){
+                delete alumno.estado;
+                fetch(`private/modulos/alumnos/alumno.php?accion=${this.accion}&alumnos=${JSON.stringify(alumno)}`)
+                    .then(response => response.json())
+                    .then(data => alertify.success("Alumno guardado"))
+                    .catch(error => console.log(error));
+                alumno.estado = 'sincronizado';
+            }
             db.alumnos.put(alumno);
-            delete alumno.estado;
-            fetch(`private/modulos/alumnos/alumno.php?accion=${this.accion}&alumnos=${JSON.stringify(alumno)}`)
-                .then(response => response.json())
-                .then(data => alertify.success(data.msg))
-                .catch(error => console.log(error));
             this.nuevoAlumno();
+            this.$emit('buscar');
         },
         nuevoAlumno() {
             this.accion = 'nuevo';
