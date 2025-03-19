@@ -10,7 +10,8 @@
                 direccion: '',
                 telefono: '',
                 email: '',
-                codigo_transaccion: uuidv4()
+                codigo_transaccion: uuidv4(),
+                estado: 'nuevo'
             },
         }
     },
@@ -26,6 +27,7 @@
         guardarAlumno() {
             let alumno = {...this.alumno};
             db.alumnos.put(alumno);
+            delete alumno.estado;
             fetch(`private/modulos/alumnos/alumno.php?accion=${this.accion}&alumnos=${JSON.stringify(alumno)}`)
                 .then(response => response.json())
                 .then(data => alertify.success(data.msg))
@@ -40,7 +42,8 @@
                 direccion: '',
                 telefono: '',
                 email: '',
-                codigo_transaccion: uuidv4()
+                codigo_transaccion: uuidv4(),
+                estado: 'nuevo'
             };
         }
     },
