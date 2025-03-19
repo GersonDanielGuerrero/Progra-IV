@@ -44,6 +44,7 @@ const matricula = {
             }
             db.matriculas.put(matricula);
             this.nuevaMatricula();
+            this.$emit('buscar');
         },
         nuevaMatricula() {
             this.accion = 'nuevo';

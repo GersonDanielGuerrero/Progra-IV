@@ -11,7 +11,7 @@ const inscripcionmaterias = {
     },
     methods: {
         buscarInscripcionMateria() {
-            this.forms.buscarInscripcionMaterias.mostrar = !this.forms.buscarInscripcionMateria.mostrar;
+            this.forms.buscarInscripcionMaterias.mostrar = !this.forms.buscarInscripcionMaterias.mostrar;
             this.$emit('buscar');
         },
         modificarInscripcionMateria(inscripcion_materia) {
@@ -26,6 +26,7 @@ const inscripcionmaterias = {
             };
             db.inscripcion_materia.put(inscripcion_materia);
             this.nuevaInscripcionMateria();
+            this.$emit('buscar');
         },
         cargarDatos() {
             db.matriculas.toArray().then(alumnos => this.alumnos = alumnos);
@@ -61,7 +62,7 @@ const inscripcionmaterias = {
                             <p class = "row p-1"
                             >Si no aparece el alumno que busca, este debe ser matriculado primero.</p>
                             <div class="card-footer bg-dark text-center">
-                            <input type="submit" value="Guardar" class="btn btn-primary"> 
+                            <input type="submit" value="Guardar" @click="guardarInscripcionMateria" class="btn btn-primary"> 
                             <input type="reset" value="Nuevo" class="btn btn-warning">
                             <input type="button" @click="buscarInscripcionMateria" value="Buscar" class="btn btn-info">
                         </div>

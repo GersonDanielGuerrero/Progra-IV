@@ -59,7 +59,7 @@ const buscarmatricula = {
                             <td>{{ matricula.fecha }}</td>
                             <td>
                                 <button class="btn btn-danger btn-sm" 
-                                    @click.stop="eliminarMaricula(matricula)">DEL</button>
+                                    @click.stop="eliminarMatricula(matricula)">DEL</button>
                             </td>
                         </tr>
                     </tbody>
