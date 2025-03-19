@@ -35,7 +35,7 @@
             if(navigator.onLine){
                 await this.sincronizarDatos();
             }
-            this.alumnos = await db.alumnos.filter(alumno => alumno[this.buscarTipo].toLowerCase().includes(this.buscar.toLowerCase())).toArray();
+            this.alumnos = await db.alumnos.filter(alumno => alumno[this.buscarTipo].toLowerCase().includes(this.buscar.toLowerCase())&&!(alumno.estado==='eliminado')).toArray()
         },
         async subirAlumnos() {
             // sube los alumnos creados localmente
