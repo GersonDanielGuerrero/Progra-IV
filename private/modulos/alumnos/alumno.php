@@ -61,3 +61,4 @@ class alumnos {
         }
     }
 }
+//TAREA: guardar huella del dispositvo en la bitácora
