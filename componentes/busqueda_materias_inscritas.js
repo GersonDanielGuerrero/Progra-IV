@@ -8,6 +8,7 @@ const buscarmateriasinscritas = {
     },
     methods: {
         async listarInscripciones() {
+            this.inscripciones = await db.inscripcion_materia.toArray();
             if(buscarTipo == 'alumno'){
                 let alumnosFiltrados = await db.alumnos.filter(alumno => alumno.nombre.toLowerCase().includes(this.buscar.toLowerCase())).toArray();
                 this.inscripciones = await db.inscripcion_materia.where('idAlumno').anyOf(alumnosFiltrados.map(alumno => alumno.idAlumno)).toArray();
