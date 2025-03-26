@@ -10,8 +10,7 @@
                 direccion: '',
                 telefono: '',
                 email: '',
-                codigo_transaccion: uuidv4(),
-                estado: 'nuevo'
+                codigo_transaccion: uuidv4()
             },
         }
     },
@@ -23,22 +22,28 @@
         modificarAlumno(alumno) {
             this.accion = 'modificar';
             this.alumno = {...alumno};
-            this.alumno.estado = 'modificado';
         },
         guardarAlumno() {
             let alumno = {...this.alumno};
-            console.log(alumno.estado);
-            if(navigator.onLine){
-                delete alumno.estado;
-                fetch(`private/modulos/alumnos/alumno.php?accion=${this.accion}&alumnos=${JSON.stringify(alumno)}`)
-                    .then(response => response.json())
-                    .then(data => alertify.success("Alumno guardado"))
-                    .catch(error => console.log(error));
-                alumno.estado = 'sincronizado';
-            }
+            alumno.hash = CryptoJS.SHA256(JSON.stringify({
+                codigo: alumno.codigo,
+                nombre: alumno.nombre,
+                direccion: alumno.direccion,
+                telefono: alumno.telefono,
+                email: alumno.email
+            })).toString();
             db.alumnos.put(alumno);
-            this.nuevoAlumno();
-            this.$emit('buscar');
+            fetch(`private/modulos/alumnos/alumno.php?accion=${this.accion}&alumnos=${JSON.stringify(alumno)}`)
+                .then(response => response.json())
+                .then(data => {
+                    if( data != true ){
+                        alertify.error(data);
+                    }else{
+                        this.nuevoAlumno();
+                        this.$emit('buscar');
+                    }
+                })
+                .catch(error => console.log(error));
         },
         nuevoAlumno() {
             this.accion = 'nuevo';
@@ -48,8 +53,7 @@
                 direccion: '',
                 telefono: '',
                 email: '',
-                codigo_transaccion: uuidv4(),
-                estado: 'nuevo'
+                codigo_transaccion: uuidv4()
             };
         }
     },
