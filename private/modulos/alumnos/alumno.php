@@ -42,6 +42,19 @@ class alumnos {
     private function administrar_alumnos(){
         global $accion;
         if($this->respuesta['msg'] == 'ok'){
+            
+            $codigo_transaccion = $this->datos['codigo_transaccion'] ?? null;
+            $hash = $this->datos['hash'] ?? null;
+            $ip_dispositivo = $_SERVER['REMOTE_ADDR'] ?? null;
+
+            $this->db->consultasql(
+                'INSERT INTO bitacora(idDocumento, hash, data, fecha_hora, ip_dispositivo) VALUES(?, ?, ?, ?, ?)', 
+                $codigo_transaccion, 
+                $hash, 
+                json_encode($this->datos), 
+                date('Y-m-d H:i:s'),
+                $ip_dispositivo
+            );
             if($accion == 'nuevo'){
                 return $this->db->consultasql('INSERT INTO alumnos(codigo,nombre,direccion,telefono,email,codigo_transaccion,hash) VALUES(?,?, ?, ?, ?, ?, ?)', 
                     $this->datos['codigo'], $this->datos['nombre'], $this->datos['direccion'], 

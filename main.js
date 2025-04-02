@@ -16,6 +16,7 @@ const app = createApp({
     },
     data() {
         return {
+            
             forms : {
                 alumno: {mostrar: false},
                 buscarAlumno: {mostrar: false},

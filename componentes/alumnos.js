@@ -4,7 +4,6 @@
     data() {
         return {
             accion: 'nuevo',
-            newHash: '',
             alumno : {
                 codigo: '',
                 nombre: '',
@@ -61,17 +60,6 @@
                 estado: 'nuevo'
             };
         }
-    },
-    mounted() {
-        this.$watch('alumno', (newValue, oldValue) => {
-            this.newHash = CryptoJS.SHA256(JSON.stringify({
-                codigo: newValue.codigo,
-                nombre: newValue.nombre,
-                direccion: newValue.direccion,
-                telefono: newValue.telefono,
-                email: newValue.email
-            })).toString();
-        },{deep: true});
     },
     template: `
         <div class="row">
