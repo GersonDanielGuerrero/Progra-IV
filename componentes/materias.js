@@ -5,10 +5,13 @@
         return {
             accion: 'nuevo',
             materias: [],
-            idMateria: '',
-            codigo: '',
-            nombre: '',
-            uv: '',
+            materia : {
+                codigo: '',
+                nombre: '',
+                uv: '',
+                codigo_transaccion: uuidv4(),
+                estado: 'nuevo'
+            },
         }
     },
     methods: {
@@ -18,30 +21,38 @@
         },
         modificarMateria(materia) {
             this.accion = 'modificar';
-            this.idMateria = materia.idMateria;
-            this.codigo = materia.codigo;
-            this.nombre = materia.nombre;
-            this.uv = materia.uv;
+            this.materia = {...materia};
+            this.materia.estado = 'modificado';
         },
         guardarMateria() {
-            let materia = {
-                codigo: this.codigo,
-                nombre: this.nombre,
-                uv: this.uv
-            };
-            if (this.accion == 'modificar') {
-                materia.idMateria = this.idMateria;
+            let materia = {...this.materia};
+            materia.hash = CryptoJS.SHA256(JSON.stringify({
+                codigo: materia.codigo,
+                nombre: materia.nombre,
+                uv: materia.uv
+            })).toString();
+            if(navigator.onLine){
+                delete materia.estado;
+                fetch(`private/modulos/materias/materia.php?accion=${this.accion}&materias=${JSON.stringify(materia)}`)
+                    .then(response => response.json())
+                    .then(data => alertify.success("Materia guardada"))
+                    .catch(error => console.log(error));
+                materia.estado = 'sincronizado';
             }
             db.materias.put(materia);
             this.nuevoMateria();
-            this.listarMaterias();
+            this.$emit('buscar');
+
         },
         nuevoMateria() {
             this.accion = 'nuevo';
-            this.idMateria = '';
-            this.codigo = '';
-            this.nombre = '';
-            this.uv = '';
+            this.materia = {
+                codigo: '',
+                nombre: '',
+                uv: '',
+                codigo_transaccion: uuidv4(),
+                estado: 'nuevo'
+            }
         }
     },
     template: `
@@ -54,19 +65,19 @@
                             <div class="row p-1">
                                 <div class="col-3 col-md-2">CODIGO</div>
                                 <div class="col-9 col-md-4">
-                                    <input required v-model="codigo" type="text" name="txtCodigoMateria" id="txtCodigoMateria" class="form-control">
+                                    <input required v-model="materia.codigo" type="text" name="txtCodigoMateria" id="txtCodigoMateria" class="form-control">
                                 </div>
                             </div>
                             <div class="row p-1">
                                 <div class="col-3 col-md-2">NOMBRE</div>
                                 <div class="col-9 col-md-6">
-                                    <input required pattern="[A-Za-zñÑáéíóú ]{3,150}" v-model="nombre" type="text" name="txtNombreMateria" id="txtNombreMateria" class="form-control">
+                                    <input required pattern="[A-Za-zñÑáéíóú ]{3,150}" v-model="materia.nombre" type="text" name="txtNombreMateria" id="txtNombreMateria" class="form-control">
                                 </div>
                             </div>
                             <div class="row p-1">
                                 <div class="col-3 col-md-2">UV</div>
                                 <div class="col-9 col-md-8">
-                                    <input required v-model="uv" type="text" name="txtUVMateria" id="txtUVMateria" class="form-control">
+                                    <input required v-model="materia.uv" type="text" name="txtUVMateria" id="txtUVMateria" class="form-control">
                                 </div>
                             </div>
                         </div>

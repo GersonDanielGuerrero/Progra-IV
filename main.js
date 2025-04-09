@@ -43,7 +43,7 @@ const app = createApp({
     created() {
         db.version(1).stores({
             alumnos: 'codigo_transaccion, codigo, nombre, direccion, telefono, email, estado, hash',
-            materias: '++idMateria, codigo, nombre, uv, estado, hash',
+            materias: 'codigo_transaccion, codigo, nombre, uv, hash, estado',
             matriculas: '++idMatricula, idAlumno, fecha, periodo, carrera, nombreAlumno, codigoAlumno, hash',
             inscripcion_materia: '++idInscripcion, idAlumno, idMateria, hash',
         });
